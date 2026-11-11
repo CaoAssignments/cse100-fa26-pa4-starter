@@ -43,7 +43,7 @@ You may add helper `.cpp`, `.hpp`, or `.h` files under `src/` and additional Goo
 
 ## Graph model and provided operations
 
-The graph is **undirected**. Its vertices have IDs `0` through `n - 1`. A graph may have zero vertices; then no vertex ID is valid. Graded inputs use at most 100,000 vertices and 200,000 input edge rows. Edge weights are integers from 0 through 1,000,000,000, inclusive. **Zero-weight edges and self-loops are allowed.** Repeated edges between the same endpoints are stored once with the smallest supplied weight.
+The graph is **undirected**. Its vertices have IDs `0` through `n - 1`. A graph may have zero vertices; then no vertex ID is valid. Graded inputs use at most 500,000 vertices and 1,000,000 input edge rows. Edge weights are integers from 0 through 1,000,000,000, inclusive. **Zero-weight edges and self-loops are allowed.** Repeated edges between the same endpoints are stored once with the smallest supplied weight.
 
 | Provided operation | Behavior |
 |---|---|
@@ -58,7 +58,7 @@ Use the adjacency lists already provided. Do not replace them with an adjacency 
 
 Return vertices in **preorder**: visit a vertex when first entering it, then completely explore each unvisited neighbor in increasing ID order. Return only the component reachable from `start`, with each vertex exactly once. An isolated valid vertex returns `{start}`. Invalid `start` throws `std::out_of_range`.
 
-The result must match recursive DFS with ascending neighbor order. An iterative implementation is recommended: a chain can contain 100,000 vertices, which can overflow the C++ call stack. Be careful about when vertices are marked visited; marking every sibling before descending does not always reproduce recursive preorder in graphs with cross edges.
+The result must match recursive DFS with ascending neighbor order. An iterative implementation is recommended: a chain can contain 500,000 vertices, which can overflow the C++ call stack. Be careful about when vertices are marked visited; marking every sibling before descending does not always reproduce recursive preorder in graphs with cross edges.
 
 ### BFS: `PathResult bfs(std::size_t source, std::size_t target) const`
 
@@ -187,6 +187,30 @@ The `#` prefixes above explain the output; the program does not print them. DFS 
 ### Debugging tips
 
 Start with tiny graphs you can draw, and compare one step of your algorithm with your drawing. Use `gdb --args ./build-debug/graph_tool data/example.txt bfs 0 4`; `break Graph::bfs`, `run`, `next`, `print`, and `bt` help inspect state and locate crashes. In Linux, run `valgrind --leak-check=full --track-origins=yes ./build/graph_tool data/example.txt dijkstra 0 4` to find invalid memory access and leaks. Fix the first reported error before chasing later ones. Check both directions of an undirected edge, reset per-query state, and test unreachable vertices and zero-weight cycles.
+
+## Dataset sizes and optional demonstration
+
+The assignment provides two separate datasets with the same graph format:
+
+| Dataset | Vertices | Undirected edges | Purpose |
+|---|---:|---:|---|
+| `data/walk/graph.txt` | 10,350 | 13,239 | Campus examples and the closure/restoration exercise. |
+| `data/san-diego/graph.txt` | 266,647 | 341,458 | Larger-scale algorithm testing across the San Diego area. |
+
+The video is an optional introduction. **Visualization is not part of the assignment: you do not need to render a map, animate an algorithm, or produce a video.**
+
+The larger graph contains 4,583 connected components; its largest has 239,321 vertices. See its [dataset guide](data/san-diego/README.md). A file of 20 practice query pairs is included at `data/san-diego/queries.txt`. For example, run the first pair in a Bash-compatible terminal:
+
+```bash
+read source target < data/san-diego/queries.txt
+./build/graph_tool data/san-diego/graph.txt bfs "$source" "$target"
+./build/graph_tool data/san-diego/graph.txt dijkstra "$source" "$target"
+./build/graph_tool data/san-diego/graph.txt components
+```
+
+Substitute `build-docker` when using that build directory. Both graphs use centimeters as edge weights. **Vertex and edge IDs are dataset-specific.** Do not reuse campus landmark IDs or campus closure/restoration files with the larger graph. Algorithms must handle arbitrary valid inputs, not just these public queries.
+
+There is currently **no fixed two-second grading requirement**. Any scored runtime requirement will specify the query workload and be calibrated in the grading environment before being announced. The algorithmic complexity requirements below still apply.
 
 ## Explore UCSD and La Jolla
 

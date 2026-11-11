@@ -8,7 +8,7 @@ Implement **DFS, BFS, Dijkstra, and disjoint-set union** on a real walking graph
 - [Watch the dataset walkthrough](media/campus-algorithms.mp4) — download the MP4 to play locally.
 - [Dataset guide](data/walk/README.md) · [Data attribution](data/walk/ATTRIBUTION.md)
 
-The complete frozen dataset is included. File parsing, graph storage, and the closure/restoration driver are provided. Implement the TODOs in `src/Graph.cpp` and `src/DisjointSet.*`, and write your testers in `test/`.
+Two frozen datasets are included: the 10,350-node campus graph and a [266,647-node San Diego graph](data/san-diego/README.md). **Visualization is not part of the assignment**; the video is an optional introduction. File parsing, graph storage, and the closure/restoration driver are provided. Implement the TODOs in `src/Graph.cpp` and `src/DisjointSet.*`, and write your testers in `test/`.
 
 ## Quick start
 

@@ -43,7 +43,7 @@ int main(int argc,char** argv) {
         if (restore ? argc!=7 : ((mode!="dfs"&&mode!="bfs"&&mode!="dijkstra"&&mode!="components") || (argc!=basic&&argc!=basic+1)))
             throw std::invalid_argument("invalid command/arguments");
         std::ifstream in(argv[1]); long long n,m;
-        if (!(in>>n>>m)||n<0||n>100000||m<0||m>200000) throw std::runtime_error("invalid graph header");
+        if (!(in>>n>>m)||n<0||n>500000||m<0||m>1000000) throw std::runtime_error("invalid graph header");
         Graph graph(static_cast<std::size_t>(n)); std::vector<Road> roads;
         for(long long i=0;i<m;++i) {
             long long u,v,w;

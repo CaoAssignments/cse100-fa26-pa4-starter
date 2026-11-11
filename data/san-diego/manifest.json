@@ -1,0 +1,31 @@
+{
+  "snapshot_utc": "2026-11-10T00:00:00Z",
+  "nodes": 266647,
+  "edges": 341458,
+  "files": {
+    "ATTRIBUTION.md": {
+      "bytes": 862,
+      "sha256": "cb43f7a5bc93d7362585f0d2124decf395d19d861720612fe22ccf124a54c3aa"
+    },
+    "README.md": {
+      "bytes": 2776,
+      "sha256": "6e72a7ed886cf8100920b5f266d2c831dcc7e774dfbcf6fec1c2d1d4e7f22f70"
+    },
+    "graph.txt": {
+      "bytes": 6201814,
+      "sha256": "75078d9c6256ea88119eac759499eb77cd784c49fce0b3bc7bff7a3e2942d4da"
+    },
+    "landmarks.tsv": {
+      "bytes": 672,
+      "sha256": "4c0f79a14489aa7d387ebb1bca41507672e80e46439fe505836c4d5c7d1d52f2"
+    },
+    "nodes.tsv": {
+      "bytes": 10975094,
+      "sha256": "c13f4467119207909635772b47ffd3a6e09979c637a55244b340ae4d5fb3a9bf"
+    },
+    "queries.txt": {
+      "bytes": 266,
+      "sha256": "188d93adacc2bc9e0fbe99cbb6ed5a7da43303a52162064c13cac5a978fe9c48"
+    }
+  }
+}
