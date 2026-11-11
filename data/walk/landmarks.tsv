@@ -1,0 +1,7 @@
+name	osm_poi_type	osm_poi_id	osm_poi_name	latitude	longitude	anchor_osm_id	snap_distance_m	node_id
+Geisel Library	way	159385495	Geisel Library	32.8811382	-117.2375802	12316437964	19.25	8725
+Price Center	way	31819709	Price Center	32.8796679	-117.2365045	10297064154	12.89	8018
+Birch Aquarium	way	39315120	Birch Aquarium	32.8659004	-117.2506428	9680860588	42.03	6585
+La Jolla Cove	relation	7102574	La Jolla Cove	32.8504521	-117.2727298	11247383967	16.01	8334
+Kellogg Park	way	44500807	Kellogg Park	32.857534	-117.2567337	9847178288	30.85	7167
+UC San Diego Central Campus	relation	11700983	UC San Diego Central Campus	32.8786682	-117.2318498	9867139439	7.62	7242

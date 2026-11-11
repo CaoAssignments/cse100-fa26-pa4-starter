@@ -1,0 +1,48 @@
+{
+  "name": "CSE100 FA26 PA4 UCSD-La Jolla walking graph",
+  "version": 1,
+  "snapshot_requested_utc": "2026-11-10T00:00:00Z",
+  "source": "OpenStreetMap via Overpass",
+  "license": "ODbL-1.0",
+  "nodes": 10350,
+  "undirected_edges": 13239,
+  "weight_unit": "centimeter",
+  "files": {
+    "ATTRIBUTION.md": {
+      "bytes": 987,
+      "sha256": "8bc2b2cd8050082da36dede9cd2390fe3d1b990d3a1553ad71b73aa729ba4836"
+    },
+    "README.md": {
+      "bytes": 5696,
+      "sha256": "c22051e30b04dc8d88ff807ff658548ce4e6d808d01b21cceb894ba330a71a86"
+    },
+    "closures.tsv": {
+      "bytes": 441,
+      "sha256": "67b7ed5272a88e83796866877ba8bd58de7872cd650908fe79fc3cae966992f0"
+    },
+    "edges.tsv": {
+      "bytes": 602612,
+      "sha256": "59f83a8d46aa45055d0efd8535b7ebdd12e7486aeb0d2418d989aabb4d571dbd"
+    },
+    "geometry.geojson": {
+      "bytes": 4039997,
+      "sha256": "fd11e4600c73137f81d88bfe59793adb6dcc06133d1196db6a086088755ac21b"
+    },
+    "graph.txt": {
+      "bytes": 195590,
+      "sha256": "83d72ef42f5244d7ea56b24762b9a1b41b307e0cee4d670a81de90d064da42ce"
+    },
+    "landmarks.tsv": {
+      "bytes": 660,
+      "sha256": "ea8c19b1b6b5c7fe4ad15fd4956b53d3af97a374d87722db445889185e285ad5"
+    },
+    "nodes.tsv": {
+      "bytes": 409237,
+      "sha256": "33e50d5b97ecccb073c9c2a99ce9d4268c0def7bc7f78e732ebc72377d48dea0"
+    },
+    "restoration.tsv": {
+      "bytes": 689,
+      "sha256": "c0e7b8960fdf3478323b708d451e0ead7693cdfd8565148d449579827ced9a72"
+    }
+  }
+}

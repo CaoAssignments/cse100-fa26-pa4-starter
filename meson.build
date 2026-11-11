@@ -1,0 +1,7 @@
+project('pa4_graphs', 'cpp', default_options: ['cpp_std=c++14', 'buildtype=debugoptimized', 'warning_level=2'])
+gtest = dependency('gtest', main: true)
+inc = include_directories('src')
+algorithms = static_library('algorithms', 'src/GraphStorage.cpp', 'src/Graph.cpp', 'src/DisjointSet.cpp', include_directories: inc)
+executable('graph_tool', 'src/graph_tool.cpp', link_with: algorithms, include_directories: inc)
+student_tests = executable('student_tests', 'test/test_graph.cpp', 'test/test_dsu.cpp', link_with: algorithms, dependencies: gtest, include_directories: inc)
+test('student_tests', student_tests)
