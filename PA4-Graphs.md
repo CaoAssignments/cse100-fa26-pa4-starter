@@ -25,7 +25,7 @@ All times are **Pacific time**. Release: **November 20, 2026, at 12:00 AM**. Che
 
 Submit `submission.zip` to the corresponding **PA4 Checkpoint** or **PA4** assignment in Gradescope. Include your implementation **and your own testers** in both submissions. The checkpoint covers DFS and BFS; Dijkstra and DSU may remain compilable stubs then. The final requires everything. The checkpoint is a 40-point progress check; the final is assessed out of 100. Do not interpret this as a 140-point final assignment.
 
-Only the **0-point Compile Check** is visible during submission. All scored tests, test outputs, and autograder scores are hidden from students. A successful compile does not establish correctness. Develop and run your own tests. Gradescope grades your active submission (the most recent by default); you may select a previous submission before the deadline. Late submissions are not accepted in the regular window. Any redo window will be announced separately.
+Only the **0-point Compile Check** is visible during submission. All scored tests, test outputs, and autograder scores are hidden from students. A successful compile does not establish correctness. Develop and run your own tests. Gradescope grades your active submission (the most recent by default); you may select a previous submission before the deadline. Late submissions are not accepted in the regular window. Any redo window will be announced separately. Because PA4 is the last PA, regrade requests must be submitted through Gradescope within **1 day after grades are released**.
 
 ## What to implement
 
@@ -39,7 +39,7 @@ Only the **0-point Compile Check** is visible during submission. All scored test
 
 We provide `src/GraphStorage.cpp` for graph construction and sorted adjacency lists, `src/graph_tool.cpp` for file parsing and command-line output, `meson.build`, a small graph in `data/example.txt`, the complete walking dataset in `data/walk/`, a Dockerfile, and `make_submission.py`. You do not need to implement file parsing. The starter deliberately compiles while its example tests fail until you implement the algorithms.
 
-You may add helper `.cpp`, `.hpp`, or `.h` files under `src/` and additional GoogleTest `.cpp` files under `test/`. Add them to the appropriate source lists in `meson.build` for local builds. Leave `src/GraphStorage.cpp` and `src/graph_tool.cpp` unchanged. Do not add another `main`: the driver and GoogleTest supply the executable entry points. The grader compiles all submitted implementation/test source files using a trusted Meson configuration; changing your local build options does not change the grader.
+You may add helper `.cpp`, `.hpp`, or `.h` files under `src/` and additional GoogleTest `.cpp` files under `test/`. Add them to the appropriate source lists in `meson.build` for local builds. Leave `src/GraphStorage.cpp` and `src/graph_tool.cpp` unchanged. Do not add another `main`: the driver and GoogleTest supply the executable entry points. The grader restores the provided `GraphStorage.cpp` and `graph_tool.cpp`, then compiles your implementation and tester source files using a trusted Meson configuration; changing your local build options does not change the grader.
 
 ## Graph model and provided operations
 
@@ -210,7 +210,7 @@ read source target < data/san-diego/queries.txt
 
 Substitute `build-docker` when using that build directory. Both graphs use centimeters as edge weights. **Vertex and edge IDs are dataset-specific.** Do not reuse campus landmark IDs or campus closure/restoration files with the larger graph. Algorithms must handle arbitrary valid inputs, not just these public queries.
 
-There is currently **no fixed two-second grading requirement**. Any scored runtime requirement will specify the query workload and be calibrated in the grading environment before being announced. The algorithmic complexity requirements below still apply.
+The larger graph is also used for the graded efficiency checks described below. There is no visualization requirement and no two-second limit for the whole program.
 
 ## Explore UCSD and La Jolla
 
@@ -286,7 +286,7 @@ Metadata files and geometry are optional for visualization. Your submission must
 | Compile Check | 0 | 0 |
 | **Total** | **40** | **100** |
 
-Memory safety requires functional operations as well as no Valgrind errors or leaks; empty stubs do not earn memory points. Your testers must compile but are not independently scored. Use GoogleTest without defining your own `main`.
+Memory safety requires functional operations as well as no Valgrind errors or leaks; empty stubs do not earn memory points. Your testers are required and must compile, but are not independently scored. A missing required tester file fails Compile Check. Functional grading runs staff tests independently; your own failing tests do not directly deduct points. Use GoogleTest without defining your own `main`.
 
 Expected query complexity, with `V` vertices and `E` stored undirected edges:
 
@@ -294,7 +294,20 @@ Expected query complexity, with `V` vertices and `E` stored undirected edges:
 - Dijkstra: `O((V + E) log(V + 1))` time and `O(V + E)` extra space.
 - DSU: `O(n)` storage and near-constant amortized operations using balancing and path compression.
 
-These bounds exclude the provided graph-construction code. There is no hardware-specific CPU-speed score or comparison to a staff laptop. Staff may review whether the required algorithms were implemented; passing black-box tests alone does not prove algorithm choice.
+These bounds exclude the provided graph-construction code. The efficiency checks use the frozen San Diego graph and the 20 pairs in `data/san-diego/queries.txt`:
+
+| Graded group | Measured workload | Algorithm time budget |
+|---|---|---:|
+| DFS deep/large graph (5 points within DFS) | 20 DFS queries | 10 seconds total |
+| BFS repeated/large graph (5 points within BFS) | 20 BFS queries | 10 seconds total |
+| Dijkstra sparse/large graph (5 points within Dijkstra) | 20 Dijkstra queries | 10 seconds total |
+| DSU stress (5 points within DSU) | DSU initialization, one union per undirected edge, 20 connectivity and component-size query pairs, and component count | 10 seconds total |
+
+These are **four separate budgets**, not ten seconds for the entire assignment. Each group requires both correctness and the time budget; the points are already included in the table above. Other correctness groups retain their points if an efficiency group fails. The same DFS/BFS checks apply at the checkpoint. Deep-chain checks use up to 500,000 vertices and are additionally subject to the process safety limit below.
+
+We measure elapsed time around algorithm calls using `std::chrono::steady_clock`. File reading, provided graph construction, output, and staff result validation are excluded. DSU's own initialization is included. Returning a path or visit vector is part of the algorithm call. No external service, preprocessing script, or additional student-written timing code is required. The provided `graph_tool` does not itself enforce these budgets; shell timing includes extra work and is only a rough development check.
+
+The budgets were calibrated with two independent correct implementations on Gradescope's 0.5-CPU/768-MiB configuration, with substantial headroom over observed runtimes. Ordinary functional test processes have a 512-MiB virtual-address-space cap and a 60-second total process timeout to stop runaway code; this total includes test setup and validation. Memory checking runs separately under Valgrind with a 120-second process timeout. These safety limits are distinct from the measured ten-second budgets. There is no comparison to a staff laptop. Staff may review whether the required algorithms were implemented; passing black-box tests alone does not prove algorithm choice.
 
 Test singleton and empty structures, self-loops, duplicate edges, disconnected components, cycles, tied paths, invalid IDs, repeated queries, distances larger than `int`, and repeated DSU unions. At the checkpoint, you can run only your relevant tests with `./build/student_tests --gtest_filter='GraphExample.*'` (adjust the filter to include the test suites you wrote). Dijkstra and DSU stubs still have to compile.
 

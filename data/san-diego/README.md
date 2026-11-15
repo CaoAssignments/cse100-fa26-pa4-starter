@@ -25,6 +25,6 @@ Disconnected regions may reflect access restrictions, missing map connections, o
 
 The campus closure/restoration fixtures apply **only** to `data/walk/graph.txt`. Do not apply them to this graph. DSU can process every edge of this graph to compute connected components.
 
-No two-second grading limit has been established for this dataset. Any scored runtime limit must specify the workload and be calibrated on Gradescope; local timing is for development only.
+The [assignment writeup](../../PA4-Graphs.md#testing-and-grading) specifies the calibrated ten-second budgets: one 20-query batch per traversal/path algorithm, and one DSU initialization/union/query batch. Visualization is not required. Local shell timing includes file loading and is not the grader measurement.
 
 Data © OpenStreetMap contributors, ODbL 1.0. See [attribution](ATTRIBUTION.md).
